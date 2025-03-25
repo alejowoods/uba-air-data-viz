@@ -5,6 +5,7 @@
   <div>
     <DateSelector @datesSelected="handleDates" />
     <OzoneChart v-if="airData" :airData="airData" />
+    <OzoneTable v-if="airData" :airData="airData" />
 
   </div>
 </template>
@@ -12,6 +13,7 @@
 <script setup>
   import DateSelector from './components/DateSelector.vue'
   import OzoneChart from './components/OzoneChart.vue'
+  import OzoneTable from './components/OzoneTable.vue'
   import { ref } from 'vue'
 
   const airData = ref(null)

@@ -4,8 +4,32 @@
   </div>
   <div>
     <DateSelector @datesSelected="handleDates" />
-    <OzoneChart v-if="airData" :airData="airData" />
-    <OzoneTable v-if="airData" :airData="airData" />
+
+    <div class="flex justify-center my-4">
+      <div class="inline-flex border rounded overflow-hidden">
+        <button
+          @click="viewMode = 'chart'"
+          :class="[
+            'px-4 py-2',
+            viewMode === 'chart' ? 'bg-blue-500 text-white' : 'bg-white text-gray-700'
+          ]"
+        >
+          Diagramm
+        </button>
+        <button
+          @click="viewMode = 'table'"
+          :class="[
+            'px-4 py-2',
+            viewMode === 'table' ? 'bg-blue-500 text-white' : 'bg-white text-gray-700'
+          ]"
+        >
+          Tabelle
+        </button>
+      </div>
+    </div>
+
+    <OzoneChart v-if="airData && viewMode === 'chart'" :airData="airData" />
+    <OzoneTable v-if="airData && viewMode === 'table'" :airData="airData" />
 
   </div>
 </template>
@@ -17,6 +41,7 @@
   import { ref } from 'vue'
 
   const airData = ref(null)
+  const viewMode = ref('chart')
 
   const handleDates = async ({ startDate, endDate }) => {
     console.log("Received in parent", startDate, endDate);

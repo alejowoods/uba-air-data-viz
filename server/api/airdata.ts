@@ -25,5 +25,4 @@ export default defineEventHandler(async(event) => {
             error: error.message || 'Unknown error occurred while fetching air data.'
         }
     }
-
 });

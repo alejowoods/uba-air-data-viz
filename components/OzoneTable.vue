@@ -1,14 +1,19 @@
 <template>
     <div>
-    <h3>Ozonwerte (O₃) – Tabelle</h3>
+    <h3>{{ $t('ozone_values_table')}}</h3>
+    <button @click="downloadTable" 
+            class="mt-2 mb-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition"
+            >
+            Download
+    </button>
     </div>
     <div>
-        <table>
+        <table ref="tableRef">
             <thead>
                 <tr>
-                    <th>Datum</th>
-                    <th>Uhrzeit</th>
-                    <th>Ozon (O₃) µg/m³</th>
+                    <th>{{ $t('table_date')}}</th>
+                    <th>{{ $t('table_time')}}</th>
+                    <th>{{ $t('table_value')}}</th>
                 </tr>
             </thead>
             <tbody>
@@ -24,6 +29,8 @@
 
 <script setup>
 import { computed } from 'vue'
+
+const tableRef = ref(null);
 
 const props = defineProps({
     airData:Object
@@ -54,6 +61,29 @@ const ozoneRows = computed(() => {
     }
     return rows
 })
+
+const downloadTable = () => {
+    console.log("📥 Downloading table...");
+
+    const headers = [ 'Date', 'Time', 'Value'];
+    const rows = ozoneRows.value.map(row => {
+        return [row.date, row.time, row.value].join(';');
+    });
+    
+    const csvContent = [headers.join(';'), ...rows].join('\n');
+    const blob = new Blob([csvContent], {type: 'text/csv;charset=utf-8;'});
+
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'ozone_data.csv');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    console.log("✅ Table downloaded as CSV.");
+
+};
 
 </script>
 

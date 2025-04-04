@@ -1,4 +1,4 @@
-export default () => ({
+export default {
     legacy: false,
     locale: 'de',
     messages: {
@@ -66,4 +66,4 @@ export default () => ({
             linkedin: "LinkedIn"
         }, 
     }
-})
+}

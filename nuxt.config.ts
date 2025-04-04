@@ -2,7 +2,7 @@ export default defineNuxtConfig({
   css: ["~/assets/css/tailwind.css"],
 
   app: {
-    baseURL: '/', // <- muy importante
+    baseURL: '/', 
   },
 
   postcss: {

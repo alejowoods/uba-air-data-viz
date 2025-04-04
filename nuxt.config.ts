@@ -1,6 +1,10 @@
 export default defineNuxtConfig({
   css: ["~/assets/css/tailwind.css"],
 
+  app: {
+    baseURL: '/', // <- muy importante
+  },
+
   postcss: {
     plugins: {
       tailwindcss: {},
@@ -20,6 +24,23 @@ export default defineNuxtConfig({
     
     defaultLocale: 'de',
     vueI18n: './i18n.config.ts' 
-  }
+  }, 
 
+  nitro: {
+    
+    publicAssets: [
+      {
+        dir: '.output/public/_nuxt',
+        baseURL: '/uba-air-data-viz/_nuxt/',
+      }
+    ],
+    prerender: {
+      crawlLinks: false,
+      routes: [
+        '/',
+        '/200.html',
+        '/404.html'
+      ],
+    }
+  }    
 });
